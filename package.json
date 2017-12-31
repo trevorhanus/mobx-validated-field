@@ -1,0 +1,9 @@
+{
+  "name": "mobx-validated-field",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "peerDependencies": {
+    "mobx": "^3.4.1"
+  }
+}
