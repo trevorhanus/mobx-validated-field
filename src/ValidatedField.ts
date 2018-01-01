@@ -84,6 +84,14 @@ export class ValidatedField implements IValidatedField {
     }
 
     @action
+    init(val: string) {
+        this._isDirty = false;
+        this._wasSubmitted = false;
+        this._value = val;
+        this.validators.forEach(validator => validator.init());
+    }
+
+    @action
     handleChange(val: string) {
         this._isDirty = true;
 

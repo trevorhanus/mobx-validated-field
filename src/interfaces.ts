@@ -15,6 +15,7 @@ export interface IValidatedField {
     errors: IFieldValidator[];
     validators: IFieldValidator[];
     addValidators(configs: IValidatorConfig[]): void;
+    init(val: string): void;
     handleChange(val: string): void;
     handleSubmit(): void;
 }
@@ -32,6 +33,7 @@ export interface IFieldValidator {
     isValid: boolean;
     hasError: boolean;
     error: string;
+    init(): void;
     handleChange(val: string): void;
     handleSubmit(val: string): void;
 }

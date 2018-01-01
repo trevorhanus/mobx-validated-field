@@ -39,6 +39,12 @@ export class FieldValidator implements IFieldValidator {
     }
 
     @action
+    init() {
+        this._hasSumbitted = false;
+        this._error = null;
+    }
+
+    @action
     handleChange(val: string) {
         this._hasSumbitted = false;
         this._error = null;
