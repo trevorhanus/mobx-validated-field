@@ -7,6 +7,7 @@ export class ValidatedField implements IValidatedField {
     @observable private _isDirty: boolean;
     @observable private _value: string;
     @observable private _wasSubmitted: boolean;
+    @observable private _errorMessage: string;
     private _validators: ObservableMap<IFieldValidator>;
     private _trimOnSubmit: boolean;
 
@@ -15,6 +16,7 @@ export class ValidatedField implements IValidatedField {
         this._validators = observable.map<IFieldValidator>();
         this._value = '';
         this._wasSubmitted = false;
+        this._errorMessage = null;
         this._trimOnSubmit = isOr(config.trimOnSubmit, false);
     }
 
@@ -25,7 +27,7 @@ export class ValidatedField implements IValidatedField {
 
     @computed
     get hasError(): boolean {
-        return this.validators.some(validator => validator.hasError);
+        return this._errorMessage != null || this.validators.some(validator => validator.hasError);
     }
 
     @computed
@@ -65,6 +67,10 @@ export class ValidatedField implements IValidatedField {
 
     @computed
     get firstErrorMessage(): string {
+        if (this._errorMessage != null) {
+            return this._errorMessage;
+        }
+
         return this.hasError
             ? this.errors[0].error
             : null;
@@ -118,8 +124,14 @@ export class ValidatedField implements IValidatedField {
         this._wasSubmitted = true;
     }
 
+    @action
+    setError(message: string) {
+        this._errorMessage = message;
+    }
+
     // for testing
 
+    @computed
     get stateForTesting(): string {
         return [
             `prist:${this.isPristine}`,

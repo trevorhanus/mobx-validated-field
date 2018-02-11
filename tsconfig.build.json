@@ -1,5 +1,4 @@
 {
-    "compileOnSave": false,
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
@@ -18,8 +17,7 @@
         ]
     },
     "include": [
-        "src/**/*",
-        "test/**/*"
+        "src/**/*"
     ],
     "exclude": [
         "node_modules/**/*"

@@ -18,6 +18,7 @@ export interface IValidatedField {
     init(val: string): void;
     handleChange(val: string): void;
     handleSubmit(): void;
+    setError(message: string): void;
 }
 
 export interface IValidatorConfig {
