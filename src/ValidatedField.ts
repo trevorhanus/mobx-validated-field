@@ -93,6 +93,7 @@ export class ValidatedField implements IValidatedField {
     init(val: string) {
         this._isDirty = false;
         this._wasSubmitted = false;
+        this._errorMessage = null;
         this._value = val;
         this.validators.forEach(validator => validator.init());
     }
@@ -100,6 +101,7 @@ export class ValidatedField implements IValidatedField {
     @action
     handleChange(val: string) {
         this._isDirty = true;
+        this._errorMessage = null;
 
         this._validators.forEach(validator => {
             validator.handleChange(val);
