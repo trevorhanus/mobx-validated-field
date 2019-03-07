@@ -8,12 +8,12 @@ export class ValidatedField implements IValidatedField {
     @observable private _value: string;
     @observable private _wasSubmitted: boolean;
     @observable private _errorMessage: string;
-    private _validators: ObservableMap<IFieldValidator>;
+    private _validators: ObservableMap<string, IFieldValidator>;
     private _trimOnSubmit: boolean;
 
     constructor(config: IValidatedFieldConfig = {}) {
         this._isDirty = false;
-        this._validators = observable.map<IFieldValidator>();
+        this._validators = observable.map<string, IFieldValidator>();
         this._value = '';
         this._wasSubmitted = false;
         this._errorMessage = null;
@@ -42,14 +42,14 @@ export class ValidatedField implements IValidatedField {
 
     @computed
     get isMaybeValid(): boolean {
-        return this._validators.values().every(validator => {
+        return this.validators.every(validator => {
             return validator.isMaybeValid;
         });
     }
 
     @computed
     get isValid(): boolean {
-        const allValidatorsAreValid = this._validators.values().every(validator => {
+        const allValidatorsAreValid = this.validators.every(validator => {
             return validator.isValid;
         });
         return allValidatorsAreValid && this.wasSubmitted;
@@ -78,7 +78,7 @@ export class ValidatedField implements IValidatedField {
 
     @computed
     get validators(): IFieldValidator[] {
-        return this._validators.values();
+        return Array.from(this._validators.values());
     }
 
     @action
